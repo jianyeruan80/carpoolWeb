@@ -1,0 +1,20 @@
+
+         <ion-modal-view class="openmodal">
+          <ion-header-bar>
+             <h1 class = "title">应付{{appData.order.grandTotal | currency}}</h1>
+             <button class = "button icon icon-right ion-ios-close-outline" 
+                ng-click = "closePay()"></button>
+          </ion-header-bar>
+          <ion-content>
+              
+              <div style="margin-top:100px;">
+                 <span ng-click="openChange(pay)" style="padding:10px;border:solid 2px red;margin:25px;background:pink" 
+                 ng-repeat="pay in testData.payList track by $index">pay&nbsp;<b>[{{pay | currency}}]</span></div>
+                
+
+
+                 <input ng-model="appData.order.receiveTotal" /><button ng-click="openChange()">paySubmit</button>
+                 <div>
+       </ion-content>
+
+         </ion-content></ion-modal-view>

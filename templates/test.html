@@ -1,0 +1,97 @@
+<ion-view view-title="Test">
+   <ion-nav-bar class="bar-stable">
+        
+     
+   </ion-nav-bar>
+  <ion-content>
+   					
+
+   					<div ng-repeat="item in appData.menus.menus track by $index" ng-class="{'test':true,'testActive':testData.selectGroupIndex==$index}" ng-click="selectGroup($index)"  >
+   							{{item.name}}
+   					 </div>
+   					 <div style="clear: both;">
+   					 <hr />
+   					 <div ng-repeat="item in testData.categorys track by $index"  ng-click="selectCategory($index)" ng-class="{'test':true,'testActive':testData.selectCategoryIndex==$index}">
+   							{{item.name}}
+   					 </div>	
+   					 <div style="clear: both;">
+   					 <hr />
+
+   					 		 <div ng-repeat="item in testData.items track by $index" class="test" ng-click="selectItem(item)">
+   							{{item.name}}
+   					 </div>	
+
+   					  <div style="clear: both; ">
+   					  	Test order:<b>{{appData.order.orderNo?appData.order.orderNo:"?"}}</b> <b> Price:</b>{{appData.order.orderDetails[testData.selectOrderDetailIndex].currentPrice}} <b> Qty:</b>  
+                      <input ng-model="appData.order.orderDetails[testData.selectOrderDetailIndex].qty" />
+                       discounts:<input ng-model="appData.order.orderDetails[testData.selectOrderDetailIndex].discount" /> 
+
+                         <span style="padding:10px;margin:5px;background:blue" ng-class="{'selectTips':appData.order.orderDetails[testData.selectOrderDetailIndex].discount>0 && appData.order.orderDetails[testData.selectOrderDetailIndex].discount==item.value}" 
+                         ng-click="appData.order.orderDetails[testData.selectOrderDetailIndex].discount=item.value"  ng-repeat="item in testData.itemDiscountLists">{{item.show}}[{{item.value}}]</span>
+                         <span ng-click="clearDiscount()">clear</span>
+                         <span ng-click="deleteOrderDetail()">Delete</span>
+   					  <hr />
+   					  	 <div ng-repeat="item in appData.order.orderDetails track by $index" style='border:solid red 2px;' 
+   					  	 ng-class="{'testActive':testData.selectOrderDetailIndex==$index}" ng-click="selectOrderDetailItem($index)"  > <!-- ng-dblclick="selectOrderDetailItem($index)" -->
+   							{{item.name}} &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <b>QTY:</b>{{item.qty}} &nbsp;&nbsp;|&nbsp;&nbsp;
+                         <b>price</b>: {{item.price|currency}} 
+
+                         <b ng-if="item.discount">Discount:-{{item.discount | currency}}</b>
+
+                         &nbsp;&nbsp;|&nbsp;&nbsp;<b>currentPrice:{{item.currentPrice - item.discount | currency}}</b>
+b   							<div ng-repeat="itemb in item.options track by $index">
+   									{{itemb.name}} &nbsp;|&nbsp;{{itemb.price |currency}}
+   							</div>
+   					     </div>	
+
+   					     	<div style="background:#000;margin-top:50px;color:#fff;padding:10px;">Sub-tobal: {{"SUBTOTAL" | TOTAL:this | currency}}  &nbsp;&nbsp;&nbsp;Tax:{{appData.order.tax | currency}}
+   					     		<br/><br/>
+                           tips:<input ng-model="appData.order.tip"  /> 
+   					     		<span style="padding:10px;margin:5px;background:blue" ng-class="{'selectTips':appData.order.tip>0 && appData.order.tip==item.value}" ng-click="appData.order.tip=item.value"  ng-repeat="item in testData.tipLists">{{item.show}}[{{item.value}}]</span>
+
+                           <br/><br/>
+                           discounts:<input ng-model="appData.order.discount" /> 
+                           <span style="padding:10px;margin:5px;background:blue" ng-class="{'selectTips':appData.order.discount>0 && appData.order.discount==item.value}"
+                            ng-click="appData.order.discount=item.value"  ng-repeat="item in testData.discountLists">{{item.show}}[{{item.value}}]</span>
+
+                           </div>
+
+   					   	</div>
+
+   					     	<div style="margin-top:25px;"><b>Amount:</b>{{appData.order.grandTotal | currency}} &nbsp;&nbsp;
+
+                       <h1 style="padding:10px;" ng-click="saveOrder()" >save</h1>             
+                       <!--  <span style="padding:20px;" ng-click="openPay()">openPay</span> -->
+                  
+
+
+                    <h1 ng-click="openPay()" ><b>pay&nbsp;<b></h1></div>
+
+
+   					 <div style="clear: both;margin-top:50px;">
+   					 <hr/>GroupOption:
+   					
+   					 <div ng-repeat="itema in appData.menus.menus[testData.selectGroupIndex].globalOptions track by $index" class="test" style="width:200px">
+   							  Group:{{itema.group}}
+                          <div ng-repeat="itemb in itema.options"  style="border:solid yellow 2px;margin:10px;padding:10px;" ng-click="selectOption(itemb)" >
+   							 	{{itemb.name}}&nbsp;|&nbsp;   {{itemb.price}} &nbsp;|&nbsp; {{item.picture}}
+   							 </div>
+   					 </div>
+
+   				<!-- 	 <hr/>GroupOption:
+   					
+   					 <div ng-repeat="itema in appData.menus.menus[testData.selectGroupIndex].globalOptions track by $index" class="test">
+   							 <div ng-repeat="itemb in itema.options"  style="border:solid yellow 2px;" ng-click="selectOption(itemb)" >
+   							 	{{itemb.name}}&nbsp;|&nbsp;   {{itemb.price}} &nbsp;|&nbsp; {{item.picture}}
+   							 </div>
+   					 </div>
+ -->
+
+
+   					  
+
+  </ion-content>
+
+</ion-view>
+

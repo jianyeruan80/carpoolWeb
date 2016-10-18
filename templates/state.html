@@ -1,0 +1,24 @@
+<ion-view view-title="State">
+   <ion-nav-bar class="bar-stable">
+        
+        <ion-nav-buttons side="right"> <button ng-click="openState()">New</button>&nbsp;&nbsp; </ion-nav-buttons>
+   </ion-nav-bar>
+  
+  <ion-content>
+
+
+<div class="list" ng-repeat="item in appData.countrys">
+  <div class="item item-divider">
+    {{item.name}}
+  </div>
+  <div class="item item-text-wrap" ng-repeat="itemSec in item.states"  ng-click="openState($parent.$index,$index)">
+    <b>{{$index+1}},</b>&nbsp;{{itemSec.name}}
+    <img  ng-src="{{CONFIG.path}}{{itemSec.picture?itemSec.picture:'default.jpg'}}" onerror="defaultImg()" style="position:absolute;right:10px;top:5px;width:30px;height:30px;border-radius:5px;" />
+  </div>
+  
+
+
+    </div>
+
+  </ion-content>
+</ion-view>

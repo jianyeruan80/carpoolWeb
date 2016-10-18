@@ -1,0 +1,86 @@
+<ion-modal-view class="openmodal">
+          <ion-header-bar>
+             <h1 class = "title">Item</h1>
+         
+
+                   <div class="buttons">
+     <button class = "button icon icon-right" ng-click="openCustomerOption('P')">Add Option Group</button>&nbsp;&nbsp;
+  <a class="button ion-close-circled" ng-click="closeItem();" style="font-size:25px;"></a>
+</div>
+          </ion-header-bar>
+          <ion-content>
+        <div class="formcontainer">
+         <div class="icon_wrapper" ng-click="uploadPicture('itemPicture')" > <!-- onerror="defaultImg()"  -->
+      <img src="{{CONFIG.path}}/{{appData.item.picture?appData.item.picture:'default.jpg'}}" onerror="defaultImg()" id="itemPictureSrc" alt="Image not found"  style="width:100px;margin-top:10px;" />
+    </div>
+     <form enctype="multipart/form-data" method="post" name="itemForm" ng-submit="itemUpdate()" >
+    <div style="display:flex; justify-content: space-between;flex-flow:row wrap">
+        <input type="file" name="picture" id="itemPicture" style="display:none" onchange="angular.element(this).scope().showPreview(this,'itemForm')"/>
+      <input  placeholder="item Name" type="text" ng-model="appData.item.name"  class="clo32 required" required/>
+      <input  placeholder="second language" type="text" ng-model="appData.item.language.name.second"   class="clo32" />
+      <input  placeholder="third language" type="text" ng-model="appData.item.language.name.third"   class="clo32" />
+      <select ng-model="appData.item.category" class="clo23 required">
+        
+          <option value="{{item._id}}" ng-repeat="item in appData.categorys">{{item.name}}</option>
+        </select>
+
+
+         <input  placeholder="price" type="text" ng-model="appData.item.price"   class="clo23 required" required/>
+          
+      <ion-checkbox ng-model="appData.item.status"  ng-true-value="true" ng-false-value="false"  class="clo23" style="border:0;height:40px;" >Status</ion-checkbox>
+
+
+      <input  placeholder="Description" type="text" ng-model="appData.item.description"   class="clo32" />
+      <input  placeholder="second language" type="text" ng-model="appData.item.language.description.second"   class="clo32" />
+      <input  placeholder="third language" type="text" ng-model="appData.item.language.description.third"   class="clo32" />
+      
+       
+   
+    
+    
+</div>
+ <div ng-click="Global=!Global" style="font-size:20px;padding:5px;" >Global Option&nbsp;<span ng-class="{'ion-arrow-up-b':!!Global,'ion-arrow-down-b':!Global}"></span></div>
+   <div class="list" ng-if="!!Global">
+
+       <div class="item item-divider" ng-repeat-start="item in appData.globalOptionGroups track by $index">
+             <div style="display:inline-block;width:80%">GroupName:{{item.group}}  Maximun:{{item.maximun}}{{item.minimun}}~ {{item.maximun}}</div>
+             
+             <div style="display:inline-block;width:20%">
+               
+               <ion-checkbox  style="width:0px;border:0;background:#ccc" ng-model="appData.item.globalOptions[$index]" 
+           ng-true-value="'{{item._id}}'" ng-false-value="" ></ion-checkbox>
+             </div>
+        </div>
+       <div class="item" ng-repeat-end ng-repeat="se in item.options track by $index">
+             <div style="display:inline-block;width:33%"><b>Name:&nbsp;</b>{{se.name}}</div>
+             <div style="display:inline-block;width:33%"><b>price:&nbsp;</b>{{se.price}}</div>
+             <div style="display:inline-block;width:33%">
+              <img src="{{CONFIG.path}}/{{se.picture}}" id="groupPictureSrc" alt="Image not found"   style="height:20px;border-radius:5px;" /></div>
+       </div>
+   
+
+  </div>
+   <div ng-show="!!(appData.optionGroups.length)>0" style="font-size:20px;padding:5px" ng-click="CustomerSign=!CustomerSign" >Customer Optionn&nbsp;<span ng-class="{'ion-arrow-up-b':!!CustomerSign,'ion-arrow-down-b':!CustomerSign}"></span></div>
+
+  <div class="list" ng-if="!CustomerSign">
+   <div class="item item-divider"  ng-click="openCustomerOption('P',$index)" ng-repeat-start="item in appData.optionGroups track by $index">
+         <div style="display:inline-block;width:33%">GroupName:{{item.group}}  </div>
+         <div style="display:inline-block;width:77%">{{item.minimun}}~ {{item.maximun}}</div>
+         <div style="display:inline-block;width:33%">Maximun:{{item.maximun}}</div>
+    </div>
+   <div class="item" ng-repeat-end ng-repeat-start="se in item.options track by $index" ng-click="openCustomerOption('S',$parent.$index,$index)">
+         <div style="display:inline-block;width:33%"><b>Name:&nbsp;</b>{{se.name}}</div>
+         <div style="display:inline-block;width:33%"><b>price:&nbsp;</b>{{se.price}}</div>
+         <div style="display:inline-block;width:33%">
+          <img src="{{CONFIG.path}}/{{se.picture}}" id="groupPictureSrc" alt="Image not found"   style="height:20px;border-radius:5px;" /></div>
+   </div>
+   <div ng-repeat-end style="text-align:right;font-size:30px;width:20;padding:10px 50px;" ng-click="openCustomerOption('S',$index)">+</div>
+
+  </div>
+     <div class="submit">
+      <input type="submit" value="Save" id="form_button" />
+      <input type="button"   ng-if="!!appData.item._id"  ng-click="deleteItem('{{appData.item._id}}')"    value="delete" style="margin:25px;">
+    </div>
+  </form>
+</div>
+         </ion-content></ion-modal-view>

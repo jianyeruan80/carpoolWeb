@@ -1,0 +1,16 @@
+
+         <ion-modal-view class="openmodal">
+          <ion-header-bar>
+             <h1 class = "title">应付:{{appData.order.grandTotal | currency}}</h1>
+             <button class = "button icon icon-right ion-ios-close-outline" 
+                ng-click = "closeChange()"></button>
+          </ion-header-bar>
+          <ion-content style="text-align:center;">
+              
+             <div>PAID:{{appData.order.receiveTotal  | currency}}</div>
+             <div>Change:{{appData.order.change  | currency}}</div>
+
+             <button ng-click="paySubmit()">OK</button>
+       </ion-content>
+
+         </ion-content></ion-modal-view>

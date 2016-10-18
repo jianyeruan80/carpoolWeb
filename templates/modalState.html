@@ -1,0 +1,39 @@
+<ion-modal-view class="openmodal">
+          <ion-header-bar>
+             <h1 class = "title">Status</h1>
+         
+
+                   <div class="buttons">
+     
+  <a class="button ion-close-circled" ng-click="closeState();" style="font-size:25px;"></a>
+</div>
+          </ion-header-bar>
+          <ion-content>
+<div class="formcontainer">
+   <form  ng-submit="stateUpdate()" >
+       <div style="display:flex; justify-content: space-between;flex-flow:row wrap">
+          
+          <input   type="text" style="visibility: hidden" class="clo70 required">
+
+
+         <select ng-model="appData.state.country" class="clo23 required">
+        
+          <option value="{{item._id}}" ng-repeat="item in appData.countrys">{{item.name}}</option>
+        </select>
+
+          <input  placeholder="name"  type="text" ng-model="appData.state.name" class="clo32 required">
+          <input  placeholder="abbreviation" type="text" ng-model="appData.state.abbreviation" class="clo32 ">
+          <input  placeholder="descript" type="text" ng-model="appData.state.descript" class="clo32 ">
+    
+       </div>
+
+
+
+  
+       <div class="submit">
+        <input type="submit" value="Save" id="form_button" />
+        <input type="button"   ng-if="!!appData.state._id"  ng-click="deleteState()"    value="delete" style="margin:25px;">
+      </div>
+  </form>
+</div>
+         </ion-content></ion-modal-view>

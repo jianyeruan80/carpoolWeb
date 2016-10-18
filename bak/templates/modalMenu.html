@@ -1,0 +1,40 @@
+  <ion-modal-view class="openmodal100">
+  
+
+  <ion-content direction="xy">
+ 
+   <!-- style="margin-left:50%;transform:translate(-50%,0)"  -->
+  <div class="tree" style=" white-space: nowrap;width:1500%;">
+    <ul>
+        <li>
+            <a href="#" ng-click="openSort()">{{appData.menus.store.name}}</a>
+            <ul> 
+              <li ng-repeat="itema in appData.menus.menus">
+               <a href="#" ng-click="openSort('G','{{itema._id}}')">{{itema.name}}</a>
+                        <ul>
+                             <li ng-repeat="itemb in itema.categorys">
+                                   <a href="#"  style="background:yellow;min-width:220px;" ng-click="openSort('C','{{itemb._id}}')">{{itemb.name}}</a>
+                                       <ul class="vertical">
+                                            <li ng-repeat="itemc in itemb.items">
+                                                 <a href="#">{{itemc.name}}<font color=red>&nbsp;${{itemc.price}}</font></a>
+                                            </li>  
+                                      </ul>
+                             </li>
+                        </ul>
+
+              </li>
+            </ul>
+          
+   </li>
+        </ul>
+
+</div>
+
+
+
+
+
+</ion-content>
+<a class="button ion-close-circled" ng-click="closeMenu();" style="font-size:25px;position:fixed;top:0px;right:0px;background:#fff" ></a>
+</ion-modal-view>
+

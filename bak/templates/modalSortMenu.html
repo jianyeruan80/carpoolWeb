@@ -1,0 +1,23 @@
+ <ion-modal-view class="openmodal">
+          <ion-header-bar>
+             <h1 class = "title">Category</h1>
+          
+
+
+     <div class="buttons">
+     
+  <a class="button ion-close-circled"  ng-click="closeSort();" style="font-size:25px;"></a>
+</div>
+
+
+          </ion-header-bar>
+          <!-- <ion-content> -->
+      <div ng-sortable="sortableConfig" style="margin-top:50px;"> 
+        <div style="padding:2px;margin:8px;border:solid #ccc 1px;color:#000;border-radius:5px;float:left;width:150px;font-size:12px;" ng-repeat="item in appData.sortItems">{{item.name}}</div>
+
+      </div>
+         <!-- </ion-content> -->
+
+
+
+         </ion-modal-view>

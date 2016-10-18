@@ -1,0 +1,31 @@
+<ion-modal-view class="openmodal">
+          <ion-header-bar>
+             <h1 class = "title">Country</h1>
+         
+
+                   <div class="buttons">
+     
+  <a class="button ion-close-circled" ng-click="closeCountry();" style="font-size:25px;"></a>
+</div>
+          </ion-header-bar>
+          <ion-content>
+<div class="formcontainer">
+   <form  ng-submit="countryUpdate()" >
+       <div style="display:flex; justify-content: space-between;flex-flow:row wrap">
+        
+         <input  placeholder="name"  type="text" ng-model="appData.country.name" class="clo32 required">
+          <input  placeholder="abbreviation" type="text" ng-model="appData.country.abbreviation" class="clo32 ">
+          <input  placeholder="descript" type="text" ng-model="appData.country.descript" class="clo32 ">
+    
+       </div>
+
+
+
+  
+       <div class="submit">
+        <input type="submit" value="Save" id="form_button" />
+        <input type="button"   ng-if="!!appData.country._id"  ng-click="deleteCountry()"    value="delete" style="margin:25px;">
+      </div>
+  </form>
+</div>
+         </ion-content></ion-modal-view>
