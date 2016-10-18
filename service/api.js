@@ -1,4 +1,4 @@
-angular.module('carpool.services', [])
+angular.module('carpool.api', [])
 .factory('api',function($http,$q,$ionicPopup,$ionicLoading,CONFIG){
  return{
      request:function(method,url,data,params){

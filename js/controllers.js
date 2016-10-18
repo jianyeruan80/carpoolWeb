@@ -1,4 +1,4 @@
-angular.module('carpool.controllers', ['ng-sortable'])
+angular.module('carpool.controllers', []) /*['ng-sortable']*/
      .filter('isShow', function() {
             return function(data, scope,customerxx) {
               
@@ -44,13 +44,13 @@ $scope.getTowns=function(){
            $scope.appData.towns=data;
        })
 }
-$scope.getTowns=function(){
+/*$scope.getTowns=function(){
    var currentUrl="villages",method="GET";
        api.request(method,currentUrl,{}).then(function(data){
            $scope.appData.villages=data;
        })
 }
-
+*/
 
 
  $scope.error=function(message,color,title){

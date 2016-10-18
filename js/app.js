@@ -5,8 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 //value可与你修改，constant不能修改。 value不能在provider内访问，constant可以
-angular.module('carpool', ['ionic', 'carpool.controllers','carpool.services','carpool.login','carpool.base','carpool.customer'])
-.constant('CONFIG', {'url':'http://192.168.1.100:3005/api/','info':{},'merchantId':"",'path':'http://192.168.1.100:3005/'})
+angular.module('carpool', ['ionic', 'carpool.controllers','carpool.api','carpool.login','carpool.base','carpool.customer'])
+.constant('CONFIG', {'url':'http://192.168.1.253:3005/api/','info':{},'merchantId':"",'path':'http://192.168.1.253:3005/'})
 .run(function($ionicPlatform,$rootScope,CONFIG,$location) {
   $rootScope.CONFIG = CONFIG;
     $rootScope.$on('$locationChangeStart', function() {

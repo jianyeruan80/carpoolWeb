@@ -1,15 +1,15 @@
 <ion-view view-title="{{title}}">
 
-  <ion-content direction="xy">
+  <ion-content direction="xy" style="width:1500%;">
  
    <!-- style="margin-left:50%;transform:translate(-50%,0)"  -->
-  <div class="tree" style=" white-space: nowrap;width:1500%;">
+  <div class="tree" style=" white-space: nowrap;width:100%;">
     <ul>
         <li>
-            <a href="#">{{treeItemJson.name}}</a>
+            <a href="#">ALL GLOBAL</a>
             <ul> 
-              <li ng-repeat="itema in treeItemJson.items">
-               <a href="#" ng-click="getGroup('{{itema._id}}')">{{itema.order}}-{{itema.groupName}}</a>
+              <li ng-repeat="itema in appData.menus">
+               <a href="#" ng-click="getGroup('{{itema._id}}')">{{itema.name}}</a>
                         <ul>
                              <li ng-repeat="itemb in itema.categorys">
                                    <a href="#"  style="background:yellow;min-width:220px;" ng-click="getCategory('{{itemb._id.id}}')">{{itemb._id.order}}-{{itemb._id.name}}</a>

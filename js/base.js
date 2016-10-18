@@ -1,6 +1,21 @@
   // Some fake testing data
 angular.module('carpool.base',[])
  .controller('CountryCtrl', function($scope, $ionicModal,$stateParams,$http,$location,$ionicPopup,CONFIG,api) {
+  $ionicModal.fromTemplateUrl('templates/modalMenu.html', {scope: $scope,animation: 'slide-in-up'}).then(function(modal) {$scope.modalMenu = modal;});
+  $scope.openMenu=function(){
+           var currentUrl="countrys/menus",method="GET";
+           
+             api.request(method,currentUrl).then(function(data){
+              
+                  $scope.appData.menus=data;
+                  $scope.modalMenu.show();
+           })
+  }
+  $scope.closeMenu=function(){
+    $scope.modalMenu.hide();
+    
+  }
+
   $ionicModal.fromTemplateUrl('templates/modalCountry.html', {scope: $scope,animation: 'slide-in-up'}).then(function(modal) {$scope.modalCountry = modal;});
   $scope.openCountry = function(index) {
     $scope.appData.country={};
@@ -10,11 +25,9 @@ angular.module('carpool.base',[])
      $scope.modalCountry.show();
   };
   $scope.closeCountry = function() {$scope.modalCountry.hide();};
-        
-        $scope.deleteCountry=function(){
-                 var currentUrl="countrys/"+$scope.appData.country._id,method="DELETE";
-           
-             api.request(method,currentUrl,{}).then(function(data){
+         $scope.deleteCountry=function(){
+          var currentUrl="countrys/"+$scope.appData.country._id,method="DELETE";
+           api.request(method,currentUrl).then(function(data){
                   $scope.closeCountry();
                   $scope.getCountrys();
            })
@@ -31,16 +44,12 @@ angular.module('carpool.base',[])
               $scope.getCountrys();
          })
         }
-
-
 $scope.getCountrys();
-
 })
   .controller('StateCtrl', function($scope,$ionicModal, $stateParams,$http,$location,$ionicPopup,CONFIG,api) {
   $ionicModal.fromTemplateUrl('templates/modalState.html', {scope: $scope,animation: 'slide-in-up'}).then(function(modal) {$scope.modalState = modal;});
   $scope.openState = function(parentIndex,index) {
-
-   $scope.appData.state={};
+  $scope.appData.state={};
    if(parentIndex>=0){ $scope.appData.state=$scope.appData.countrys[parentIndex].states[index];
     }else{$scope.appData.state.country=$scope.appData.countrys[0]._id;}
     $scope.modalState.show();
@@ -48,11 +57,11 @@ $scope.getCountrys();
   $scope.closeState = function() {$scope.modalState.hide();};
     
         $scope.deleteState=function(parentIndex,index){
-                 var currentUrl="states/"+$scope.appData.state._id,method="DELETE";
+            var currentUrl="states/"+$scope.appData.state._id,method="DELETE";
            
-             api.request(method,currentUrl,{}).then(function(data){
+             api.request(method,currentUrl).then(function(data){
                   $scope.closeState();
-                  $scope.getStates();
+                  $scope.getCountrys();
            })
         }
         $scope.stateUpdate=function(){
@@ -64,7 +73,6 @@ $scope.getCountrys();
           }
          api.request(method,currentUrl,$scope.appData.state).then(function(data){
               $scope.closeState();
-              $scope.getStates();
               $scope.getCountrys();
          })
         }
@@ -91,7 +99,7 @@ $scope.deleteCity=function(parentIndex,index){
            
              api.request(method,currentUrl,{}).then(function(data){
                   $scope.closeCity();
-                  $scope.getCitys();
+                  $scope.getStates();
            })
         }
         $scope.cityUpdate=function(){
@@ -115,14 +123,71 @@ $scope.deleteCity=function(parentIndex,index){
 
 })
 .controller('TownCtrl', function($scope, $ionicModal,$stateParams,$http,$location,$ionicPopup,CONFIG,api) {
-$ionicModal.fromTemplateUrl('templates/modalTown.html', {scope: $scope,animation: 'slide-in-up'}).then(function(modal) {$scope.modalTown = modal;});
-  $scope.openTown = function() {$scope.modalTown.show();};
+  $ionicModal.fromTemplateUrl('templates/modalTown.html', {scope: $scope,animation: 'slide-in-up'}).then(function(modal) {$scope.modalTown = modal;});
+    $scope.openTown = function(parentIndex,index) {
+
+   $scope.appData.town={};
+   if(parentIndex>=0){ $scope.appData.town=$scope.appData.citys[parentIndex].towns[index];
+    }else{$scope.appData.town.city=$scope.appData.citys[0]._id;}
+    $scope.modalTown.show();
+  };
   $scope.closeTown = function() {$scope.modalTown.hide();};
+      
+$scope.deleteTown=function(){
+                 var currentUrl="towns/"+$scope.appData.town._id,method="DELETE";
+           
+             api.request(method,currentUrl,{}).then(function(data){
+                  $scope.closeTown();
+                  $scope.getCitys();
+           })
+        }
+        $scope.townUpdate=function(){
+          
+          var currentUrl="towns",method="POST";
+        if($scope.appData.town._id){
+            currentUrl="towns/"+$scope.appData.town._id;
+            method="PUT";
+          }
+         api.request(method,currentUrl,$scope.appData.town).then(function(data){
+              $scope.closeTown();
+              $scope.getCitys();
+         })
+        }
+       $scope.getCitys();
+
 })
 .controller('VillageCtrl', function($scope,$ionicModal,$stateParams,$http,$location,$ionicPopup,CONFIG,api) {
-$ionicModal.fromTemplateUrl('templates/modalVillage.html', {scope: $scope,animation: 'slide-in-up'}).then(function(modal) {$scope.modalVillage = modal;});
-  $scope.openVillage = function() {$scope.modalVillage.show();};
+  $ionicModal.fromTemplateUrl('templates/modalVillage.html', {scope: $scope,animation: 'slide-in-up'}).then(function(modal) {$scope.modalVillage = modal;});
+    $scope.openVillage = function(parentIndex,index) {
+
+   $scope.appData.village={};
+   if(parentIndex>=0){ $scope.appData.village=$scope.appData.towns[parentIndex].villages[index];
+    }else{$scope.appData.village.town=$scope.appData.towns[0]._id;}
+    $scope.modalVillage.show();
+  };
   $scope.closeVillage = function() {$scope.modalVillage.hide();};
+      
+$scope.deleteVillage=function(){
+                 var currentUrl="villages/"+$scope.appData.village._id,method="DELETE";
+           
+             api.request(method,currentUrl,{}).then(function(data){
+                  $scope.closeVillage();
+                  $scope.getTowns();
+           })
+        }
+        $scope.villageUpdate=function(){
+          
+          var currentUrl="villages",method="POST";
+        if($scope.appData.village._id){
+            currentUrl="villages/"+$scope.appData.village._id;
+            method="PUT";
+          }
+         api.request(method,currentUrl,$scope.appData.village).then(function(data){
+              $scope.closeVillage();
+              $scope.getTowns();
+         })
+        }
+       $scope.getTowns();
 });
 
          
