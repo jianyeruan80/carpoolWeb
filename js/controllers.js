@@ -22,7 +22,7 @@ $scope.getCountrys=function(){
      var currentUrl="countrys",method="GET";
        api.request(method,currentUrl,{}).then(function(data){
            $scope.appData.countrys=data;
-           console.log(data)
+         
        })
     
 }
@@ -79,54 +79,15 @@ $scope.showPreview=function(o){
        var pic = document.getElementById(byId+'Src');
        var file = document.getElementById(byId);
        html5Reader(file,pic);
-      // var uploadUrl=CONFIG.url+"uploadPic";
-        var oDataSource = new FormData();
-
-         oDataSource.append('picture', file.files[0]);
-
-   var currentUrl="uploadPic",method="POST";
-     
-       api.request(method,currentUrl,oDataSource,{},{ 'Content-Type': undefined}).then(function(data){
-        console.log(data)
+      var oDataSource = new FormData();
+      oDataSource.append('picture', file.files[0]);
+      var currentUrl="uploadPic",method="POST";
+      api.request(method,currentUrl,oDataSource,{},{ 'Content-Type': undefined}).then(function(data){
+        
           $scope.appData.currentPic=data; 
            file.value=null; 
-           // $scope.closeUserModal();
-           // $scope.getUsers();
        })
-    //Take the first selected file
-    
 
-   /* $http.post(uploadUrl, oDataSource, {
-       //  withCredentials : false,
-  
-   headers : {
-    'Content-Type' : undefined,"Authorization": "Bearer "+CONFIG.info.accessToken
-   },
- //transformRequest : angular.identity
-       // headers: {'Content-Type': undefined ,"Authorization": "Bearer "+CONFIG.info.accessToken},
-        
-    }).success(alert("OK") ).error(alert("NO") );*/
-             /*    var uploadUrl=CONFIG.url+"uploadPic";
-                   function reqListener () {
-                               var resData=JSON.parse(this.responseText);
-                             console.log(resData)
-                               if(!!resData){
-                                if($scope.appData.currentOptionPic=="optionPicture"){
-                                  $scope.appData.currentOptionPic=resData;
-                                }else{
-                                  $scope.appData.currentPic=resData;  
-                                }
-                                
-                                
-                                file.value=null;
-                                 }
-                             
-                    }
-                        var oReq = new XMLHttpRequest();
-                        oReq.addEventListener("load", reqListener);
-                        oReq.open("POST", uploadUrl,true);
-                        oReq.setRequestHeader("Authorization", "Bearer "+CONFIG.info.accessToken);
-                        oReq.send(oDataSource);*/
     }
 
 
