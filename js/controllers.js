@@ -73,24 +73,40 @@ $scope.getTowns=function(){
       document.getElementById(id).click();
   }
 
-$scope.showPreview=function(o,form){
+$scope.showPreview=function(o){
        var byId=o.id;
-       var index=!!o.getAttribute("data-index")?o.getAttribute("data-index"):"";
+       
        var pic = document.getElementById(byId+'Src');
        var file = document.getElementById(byId);
        html5Reader(file,pic);
-                var oData = new FormData(document.forms.namedItem(form));
-              var oDataSource = new FormData();
-        for (var [key, value] of oData.entries()) { 
-         if(key=="picture"){
-            if(value.size>0){
-               oDataSource.append('picture', value);
-               
-             }
-           
-          }
-        }
-                 var uploadUrl=CONFIG.url+"uploadPic";
+      // var uploadUrl=CONFIG.url+"uploadPic";
+        var oDataSource = new FormData();
+
+         oDataSource.append('picture', file.files[0]);
+
+   var currentUrl="uploadPic",method="POST";
+     
+       api.request(method,currentUrl,oDataSource,{},{ 'Content-Type': undefined}).then(function(data){
+        console.log(data)
+          $scope.appData.currentPic=data; 
+           file.value=null; 
+           // $scope.closeUserModal();
+           // $scope.getUsers();
+       })
+    //Take the first selected file
+    
+
+   /* $http.post(uploadUrl, oDataSource, {
+       //  withCredentials : false,
+  
+   headers : {
+    'Content-Type' : undefined,"Authorization": "Bearer "+CONFIG.info.accessToken
+   },
+ //transformRequest : angular.identity
+       // headers: {'Content-Type': undefined ,"Authorization": "Bearer "+CONFIG.info.accessToken},
+        
+    }).success(alert("OK") ).error(alert("NO") );*/
+             /*    var uploadUrl=CONFIG.url+"uploadPic";
                    function reqListener () {
                                var resData=JSON.parse(this.responseText);
                              console.log(resData)
@@ -110,7 +126,7 @@ $scope.showPreview=function(o,form){
                         oReq.addEventListener("load", reqListener);
                         oReq.open("POST", uploadUrl,true);
                         oReq.setRequestHeader("Authorization", "Bearer "+CONFIG.info.accessToken);
-                        oReq.send(oDataSource);
+                        oReq.send(oDataSource);*/
     }
 
 
